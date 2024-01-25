@@ -14,12 +14,12 @@ Simple URL shortener web application developed using Laravel and Vue.js, which a
 
 ## Installation
 
-git clone the project
-cd path/to/root/folder/url-shortener
-copy .env.example .env
-edit database credientials
-composer install
-php artisan key:generate
-php artisan migrate
-cd vue(inside the laravel app)
-npm install && npm run dev
+git clone the project<br />
+cd path/to/root/folder/url-shortener<br/>
+copy .env.example .env<br />
+edit database credientials<br />
+composer install<br />
+php artisan key:generate<br />
+php artisan migrate<br />
+cd vue(inside the laravel app)<br />
+npm install && npm run dev<br />
