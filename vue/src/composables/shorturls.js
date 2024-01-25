@@ -1,38 +1,45 @@
-import axios from 'axios'
-import {ref} from 'vue'
+import axios from 'axios';
+import { reactive, toRefs } from 'vue';
 
 const axiosClient = axios.create({
-    baseURL: 'https://url-shortener.test/api/v1'
+    baseURL: 'https://url-shortener.test/api/v1',
+});
+
+const state = reactive({
+    shortUrls: [],
+    mostVisitedUrls: [],
+    visitCount: 0
 })
 
 export default function useShortUrls() {
-    const shortUrls = ref([]);
-    const mostVisitedUrls = ref([]);
 
     const getShortUrls = () => {
-        axiosClient.get('/short-urls')
-            .then(response => {
-                shortUrls.value = response.data;
+        axiosClient
+            .get('/short-urls')
+            .then((response) => {
+                console.log(response)
+                state.shortUrls = response.data;
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error.response);
             });
     };
 
     const getMostVisitedUrls = () => {
-        axiosClient.get('/most-visited')
-            .then(response => {
-                mostVisitedUrls.value = response.data;
+        axiosClient
+            .get('/most-visited')
+            .then((response) => {
+                state.mostVisitedUrls = response.data;
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error.response);
             });
     };
 
     const storeShortUrl = (urlData) => {
         axiosClient.post('/shorten-url', urlData)
-            .then(() => {
-                //
+            .then( response => {
+                state.shortUrls.push(response.data)
             })
             .catch(error => {
                 console.log(error.response);
@@ -40,22 +47,22 @@ export default function useShortUrls() {
     };
 
     const incrementVisitCount = (slug) => {
-        console.log(slug)
-        axiosClient.put('/short-url/' + slug)
+        console.log(slug);
+        axiosClient
+            .put('/short-url/' + slug)
             .then(() => {
                 // Success, do something if needed
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error.response);
             });
     };
 
     return {
-        shortUrls,
+        ...toRefs(state),
         getShortUrls,
-        mostVisitedUrls,
         getMostVisitedUrls,
         storeShortUrl,
         incrementVisitCount,
-    }
+    };
 }

@@ -31,7 +31,7 @@ class ShortenUrlController extends Controller
         return response()->json($urls);
     }
 
-    public function mostVisitedUrls($limit = 5)
+    public function mostVisitedUrls($limit = 3)
     {
         $mostVisitedUrls = ShortUrl::orderBy('visits', 'desc')
             ->take($limit)

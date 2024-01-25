@@ -10,15 +10,15 @@ function handleShortUrlClick(shortUrl) {
 }
 
 onMounted(getShortUrls)
-
-watch(() => router.params?.slug, () => {
-    console.log()
-    getShortUrls();
-});
 </script>
 
 <template>
-    <div v-for="shortUrl in shortUrls" :key="shortUrl.id" class="p-3 w-full gap-x-6">
-        <a @click.prevent="handleShortUrlClick(shortUrl)">{{ "https://r.yo/" + shortUrl.slug }}</a> - Visits: {{ shortUrl.visits }}
+    <div v-for="shortUrl in shortUrls" :key="shortUrl.id" class="flex items-center justify-between py-3 border-b border-gray-300 w-76 mx-auto">
+        <div class="">
+            <span @click.prevent="handleShortUrlClick(shortUrl)" class="cursor-pointer">{{ "https://r.yo/" + shortUrl.slug }}</span>
+        </div>
+        <div>
+            <span>{{ shortUrl.visits }} Visits</span>
+        </div>
     </div>
 </template>

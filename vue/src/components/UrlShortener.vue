@@ -12,7 +12,7 @@ const shortenUrl = () => {
     storeShortUrl({ ...shortUrl })
     shortUrl.destination_url = ''
 
-    router.push({ name: 'ShortUrls', query: { slug:  shortUrl.slug} });
+    //router.push({ name: 'ShortUrls', query: { slug:  shortUrl.slug} });
 }
 
 </script>
@@ -46,16 +46,30 @@ const shortenUrl = () => {
     </div>
     <div class="w-full px-6 py-12 lg:px-8">
         <div>
-            <ul class="flex">
-                <li class="mr-6">
-                    <router-link class="text-blue-500 hover:text-blue-800" to="/short-urls">Recent Urls</router-link>
-                </li>
-                <li class="mr-6">
-                    <router-link class="text-blue-500 hover:text-blue-800" to="/most-visited">Most Visited</router-link>                
-                </li>
-            </ul>
+            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div class="relative flex h-16 items-center justify-between">
+                    <div class="flex space-x-4">
+                        <router-link to="/short-urls" active-class="" :class="[
+                            this.$route.path === '/most-visited'
+                                ? ''
+                                : 'text-center block border border-blue-500 rounded py-2 px-4 bg-indigo-600 hover:bg-indigo-400 text-white',
+                            'text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4',
+                        ]">
+                            Recent Urls
+                        </router-link>
+                        <router-link to="/most-visited" active-class="" :class="[
+                            this.$route.path ==='/short-urls'
+                                ? ''
+                                : 'text-center block border border-blue-500 rounded py-2 px-4 bg-indigo-600 hover:bg-indigo-400 text-white',
+                            'text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4',
+                        ]">
+                            Most Visited
+                        </router-link>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2 ">
             <router-view />
         </div>
     </div>
